@@ -1,0 +1,16 @@
+SELECT 
+    Orders.Date AS order_date
+    ProductCategory.CategoryName AS category_name
+    Products.ProdName AS product_name
+    Products.Price AS product_price
+    Orders.Quantity AS order_qty
+    Customers.CustomerEmail AS cust_email
+    Customers.CustomerCity AS cust_city
+    (Orders.Quantity * Products.Price) AS total_sales
+FROM 
+	ProductCategory 
+INNER JOIN 
+(Products INNER JOIN (Customers INNER JOIN Orders ON Customers.CustomerID = Orders.CustomerID) 
+ON Products.ProdNumber = Orders.ProdNumber) ON ProductCategory.CategoryID = Products.Category
+
+ORDER BY Orders.Date;
